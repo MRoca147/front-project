@@ -4,7 +4,10 @@
 Para funcionar es necesario cambiar dentro del archivo store.js 
 
 ```
-url: Inserte la url del servidor back que posee la RestApi
+state: {
+    auth: false,
+    url: 'http://back-project.test/api/' // cambiar esta url por la de su servidor con el api con este formato de ejemplo: http://127.0.0.1:8080/api/ 
+}
 ```
 
 ## Project setup
