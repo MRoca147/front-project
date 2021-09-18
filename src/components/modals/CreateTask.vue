@@ -71,7 +71,7 @@ export default {
       if(this.$refs.upload_file.files[0]){
         form.append('upload_file', this.$refs.upload_file.files[0])
       }
-      fetch('http://back-project.test/api/tasks',{
+      fetch(this.$store.state.url+'tasks',{
         method: 'POST',
         body: form,
         headers: {

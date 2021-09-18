@@ -18,25 +18,11 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: Login,
-    // beforeEnter: (to, from, next) => {
-    //   if(store.getters.getAuth == false){
-    //     next();
-    //   }else{
-    //     next('/Home');
-    //   }
-    // }
   },
   {
     path: '/Home',
     name: 'Home',
     component: Home,
-    // beforeEnter: (to, from, next) => {
-    //   if(!store.getters.getAuth){
-    //     next('/login');
-    //   }else{
-    //     next();
-    //   }
-    // }
   }
 ]
 

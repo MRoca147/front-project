@@ -59,7 +59,7 @@ export default {
   },
   methods: {
     register(){
-      fetch('http://back-project.test/api/register',{
+      fetch(this.$store.state.url+'register',{
         method: 'POST',
         body: JSON.stringify(this.form),
         headers: {

@@ -2,7 +2,8 @@ import Vuex from 'vuex'
 
 export default new Vuex.Store({
   state: {
-    auth: false
+    auth: false,
+    url: 'http://back-project.test/api/'
   },
   mutations: {
     setAuth(state, status){

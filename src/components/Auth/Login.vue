@@ -52,7 +52,7 @@ export default {
   },
   methods: {
     login(){
-      fetch('http://back-project.test/api/login',{
+      fetch(this.$store.state.url+'login',{
         method: 'POST',
         body: JSON.stringify(this.form),
         headers: {

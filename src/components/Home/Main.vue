@@ -66,7 +66,7 @@ export default {
       this.activities.push(data)
     },
     logout(){
-      fetch('http://back-project.test/api/logout',{
+      fetch(this.$store.state.url+'logout',{
         method: 'GET',
         headers: {
           'Accept': 'application/json',
@@ -82,7 +82,7 @@ export default {
       })
     },
     getActivities(){
-      fetch('http://back-project.test/api/activities',{
+      fetch(this.$store.state.url+'activities',{
         method: 'GET',
         headers: {
           'Accept': 'application/json',

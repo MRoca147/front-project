@@ -61,7 +61,7 @@ export default {
   },
   methods: {
     create(){
-      fetch('http://back-project.test/api/activities',{
+      fetch(this.$store.state.url+'activities',{
         method: 'POST',
         body: JSON.stringify(this.form),
         headers: {

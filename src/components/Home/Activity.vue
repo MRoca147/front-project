@@ -78,7 +78,7 @@ export default {
       this.$emit('updateList', data.activity)
     },
     deleteActivity(){
-      fetch('http://back-project.test/api/activities/'+this.activity.id,{
+      fetch(this.$store.state.url+'activities/'+this.activity.id,{
         method: 'DELETE',
         headers: {
           'Accept': 'application/json',

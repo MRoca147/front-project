@@ -28,7 +28,7 @@ export default {
   },
   methods: {
     updateCompleted(){
-      fetch('http://back-project.test/api/tasks/completed/'+this.task.id,{
+      fetch(this.$store.state.url+'tasks/completed/'+this.task.id,{
         method: 'GET',
         headers: {
           'Accept': 'application/json',
@@ -42,7 +42,7 @@ export default {
       })
     },
     deleteTask(){
-      fetch('http://back-project.test/api/tasks/'+this.task.id,{
+      fetch(this.$store.state.url+'tasks/'+this.task.id,{
         method: 'DELETE',
         headers: {
           'Accept': 'application/json',
