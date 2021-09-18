@@ -1,0 +1,73 @@
+<template>
+  <div class="container">
+    <div class="container">
+    <div class="row">
+      <div class="col-md-4 col-12"></div>
+      <div class="col-md-4 col-12">
+        <div class="card">
+          <div class="card-header">
+            Registrarse
+          </div>
+          <div class="card-body">
+            <form v-on:submit.prevent="register">
+              <div class="form-group">
+                <label for="name">Nombre</label>
+                <input type="text" name="name" id="name" v-model="form.name" class="form-control" placeholder="Nombre" aria-describedby="helpId">
+              </div>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="text" name="email" id="email" v-model="form.email" class="form-control" placeholder="Email" aria-describedby="helpId">
+              </div>
+              <div class="form-group">
+                <label for="password">Contraseña</label>
+                <input type="password" name="password" id="password" v-model="form.password" class="form-control" placeholder="Contraseña" aria-describedby="helpId">
+              </div>
+              <div class="form-group mt-2">
+                <button type="submit" class="btn btn-success">Registrarse</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 col-12"></div>
+    </div>
+  </div>
+  </div>
+</template>
+
+<script>
+export default {
+  data(){
+    return {
+      form: {}
+    }
+  },
+  created(){
+
+  },
+  mounted(){
+
+  },
+  methods: {
+    register(){
+      fetch('http://back-project.test/api/register',{
+        method: 'POST',
+        body: JSON.stringify(this.form),
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data)
+        this.$router.push('Login') 
+      })
+    }
+  }
+}
+</script>
+
+<style scope>
+  
+</style>
