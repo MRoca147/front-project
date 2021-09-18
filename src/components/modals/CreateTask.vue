@@ -6,7 +6,10 @@
 
           <div class="modal-header">
             <slot name="header">
-              Crear actividad
+              Crear tarea
+              <button class="btn btn-danger" @click="$emit('close')">
+                X
+              </button>
             </slot>
           </div>
 
@@ -17,9 +20,12 @@
                   <label for="description">Descripción</label>
                   <input v-model="form.description" type="text" name="description" id="description" class="form-control">
                 </div>
-                <div class="form-group">
+                <div class="form-group mt-2">
                   <label for="description">Archivo (opcional)</label>
                   <input type="file" ref="upload_file" name="file" id="file" class="form-control">
+                </div>
+                <div class="form-group mt-2 mb-2" v-if="error != ''">
+                  <span class="mt-2" v-for="(item, index) in error" :key="index" style="color: red">{{item}}<br></span>
                 </div>
                 <div class="form-group mt-2">
                   <button type="submit" class="btn btn-success btn-block">Crear tarea</button>
@@ -30,10 +36,6 @@
 
           <div class="modal-footer">
             <slot name="footer">
-              default footer
-              <button class="modal-default-button" @click="$emit('close')">
-                OK
-              </button>
             </slot>
           </div>
         </div>
@@ -48,7 +50,10 @@ export default {
   data(){
     return {
       token: '',
-      form: {}
+      form: {
+        description: '',
+      },
+      error: ''
     }
   },
   created(){
@@ -62,7 +67,10 @@ export default {
       var form = new FormData()
       form.append('activity_id', this.activity)
       form.append('description', this.form.description)
-      form.append('upload_file', this.$refs.upload_file.files[0])
+      console.log()
+      if(this.$refs.upload_file.files[0]){
+        form.append('upload_file', this.$refs.upload_file.files[0])
+      }
       fetch('http://back-project.test/api/tasks',{
         method: 'POST',
         body: form,
@@ -73,11 +81,11 @@ export default {
       })
       .then(response => response.json())
       .then(data => {
-        console.log(data)
-        this.$emit('create', data.data)
-        this.$emit('close')
-      }).catch(function (data) {
-        alert(data)
+        if(data.success == true){
+          this.$emit('create', data.data)
+          this.$emit('close')
+        }
+        this.error = data.errors
       })
     }
   }

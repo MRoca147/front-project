@@ -6,7 +6,10 @@
 
           <div class="modal-header">
             <slot name="header">
-              Crear actividad
+              <h5> Tarea </h5>
+              <button class="btn btn-danger" @click="$emit('close')">
+                X
+              </button>
             </slot>
           </div>
 
@@ -15,17 +18,15 @@
               <form v-on:submit.prevent="create" enctype="multipart/form-data">
                 <div class="form-group">
                   <label for="description">Descripción</label>
-                  <input v-model="task.description" type="text" name="description" id="description" class="form-control">
+                  <input readonly v-model="task.description" type="text" name="description" id="description" class="form-control">
                 </div>
                 <div class="form-group">
-                  <label for="description">Archivo (opcional)</label>
-                  <input type="file" ref="upload_file" name="file" id="file" class="form-control">
-                </div>
-                <div class="form-group">
-                  <img v-if="task.file" class="image-task" :src="'http://back-project.test/storage/'+task.file.replace('public/', '')" alt="">
-                </div>
-                <div class="form-group mt-2">
-                  <button type="submit" class="btn btn-success btn-block">Actualizar tarea</button>
+                  <label for="file">Archivos adjuntos</label>
+                  <div>
+                    <a href=""></a>
+                    <img v-if="task.file" class="image-task" :src="'http://back-project.test/storage/'+task.file.replace('public/', '')" alt="">
+                    <p v-else>No tiene</p>
+                  </div>
                 </div>
               </form>
             </slot>
@@ -33,10 +34,6 @@
 
           <div class="modal-footer">
             <slot name="footer">
-              default footer
-              <button class="modal-default-button" @click="$emit('close')">
-                OK
-              </button>
             </slot>
           </div>
         </div>
@@ -63,28 +60,7 @@ export default {
 
   },
   methods: {
-    // create(){
-    //   var form = new FormData()
-    //   form.append('activity_id', this.activity)
-    //   form.append('description', this.form.description)
-    //   form.append('upload_file', this.$refs.upload_file.files[0])
-    //   fetch('http://back-project.test/api/tasks',{
-    //     method: 'POST',
-    //     body: form,
-    //     headers: {
-    //       'Accept': 'application/json',
-    //       'Authorization': `Bearer ${this.token}`
-    //     }
-    //   })
-    //   .then(response => response.json())
-    //   .then(data => {
-    //     console.log(data)
-    //     this.$emit('create', data.data)
-    //     this.$emit('close')
-    //   }).catch(function (data) {
-    //     alert(data)
-    //   })
-    // }
+    
   }
 }
 </script>

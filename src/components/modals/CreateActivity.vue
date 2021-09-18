@@ -6,7 +6,10 @@
 
           <div class="modal-header">
             <slot name="header">
-              Crear actividad
+                <h5>Crear actividad</h5>
+                <button class="btn btn-danger btn-icon" @click="$emit('close')">
+                X
+                </button>
             </slot>
           </div>
 
@@ -15,11 +18,14 @@
               <form v-on:submit.prevent="create">
                 <div class="form-group">
                   <label for="title">Titulo *</label>
-                  <input type="text" name="title" id="title" v-model="form.title" class="form-control" placeholder="Email" aria-describedby="helpId">
+                  <input type="text" name="title" id="title" v-model="form.title" class="form-control" placeholder="Titulo" aria-describedby="helpId">
                 </div>
                 <div class="form-group">
                   <label for="description">Descripción (opcional)</label>
-                  <textarea class="form-control" name="description" id="description" v-model="form.description" cols="30" rows="5"></textarea>
+                  <textarea class="form-control" name="description" id="description" v-model="form.description" cols="30" rows="5" placeholder="Descripción"></textarea>
+                </div>
+                <div class="form-group" v-if="error != ''">
+                  <span class="mt-2" v-for="(item, index) in error" :key="index" style="color: red">{{item}}<br></span>
                 </div>
                 <div class="form-group mt-2">
                   <button type="submit" class="btn btn-success btn-block">Crear actividad</button>
@@ -30,10 +36,6 @@
 
           <div class="modal-footer">
             <slot name="footer">
-              default footer
-              <button class="modal-default-button" @click="$emit('close')">
-                OK
-              </button>
             </slot>
           </div>
         </div>
@@ -47,7 +49,8 @@ export default {
   data(){
     return {
       token: '',
-      form: {}
+      form: {},
+      error: ''
     }
   },
   created(){
@@ -69,9 +72,11 @@ export default {
       })
       .then(response => response.json())
       .then(data => {
-        console.log(data)
-        this.$emit('create', data.data)
-        this.$emit('close')
+        if(data.success == true){
+          this.$emit('create', data.data)
+          this.$emit('close')
+        }
+        this.error = data.errors
       })
     }
   }

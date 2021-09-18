@@ -1,14 +1,14 @@
 <template>
-  <div class="card" :class="[
-      'card',
+  <div class="card">
+    <div :class="[
+      'card-header',
       completed ? 'bg-success text-white' : '',
     ]">
-    <div class="card-header">
       <div class="row">
         <div class="col-12">
           <div class="d-flex justify-content-between">
-            <h3>{{activity.title}}</h3>
-            <button @click="deleteActivity" class="btn btn-danger">X</button>
+            <h3>{{activity.title}} <span v-if="completed">(Finalizada)</span></h3>
+            <button @click="deleteActivity" class="btn btn-danger btn-sm">X</button>
           </div>
           <div class="d-flex justify-content-start">
             <p>{{activity.description}}</p>
@@ -16,31 +16,13 @@
         </div>
       </div>
       <div class="d-flex justify-content-start">
-        <button @click="selectedActivity = activity.id; modalTask = true" class="btn btn-success">+ Tarea</button>
+        <button @click="selectedActivity = activity.id; modalTask = true" class="btn btn-success" :class="[completed ? 'btn btn-warning' : 'btn btn-success',]">+ Tarea</button>
       </div>
     </div>
     <div class="card-body">
-      <div class="table-responsive">
-        <table class="table">
-          <thead>
-            <th scope="col"></th>
-            <th scope="col">Tareas</th>
-            <th scope="col"></th>
-          </thead>
-          <tbody>
-            <tr v-if="activity.tasks.length == 0">
-              <td></td>
-              <td>Sin tareas</td>
-              <td></td>
-            </tr>
-            <task v-else @delete-task="deleteTask($event)" @update-task="updateList($event)" v-for="(task, index) in activity.tasks" :key="index" :data="task"/>
-          </tbody>
-        </table>
-      </div>
+      <ul style="list-style: none" v-if="activity.tasks.length == 0"><li>No hay tareas</li></ul>
+      <task v-else @delete-task="deleteTask($event)" @update-task="updateList($event)" v-for="(task, index) in activity.tasks" :key="index" :data="task"/>
     </div>
-    <!-- <div class="card-footer text-muted">
-      Footer
-    </div> -->
     <create-task :activity="selectedActivity" v-if="modalTask" @close="modalTask = false" @create="addTask($event)"/>
   </div>
 </template>
@@ -49,12 +31,13 @@
 import Task from './Task.vue'
 import CreateTask from '../modals/CreateTask'
 export default {
-  components: { Task, CreateTask },
+  components: { Task, CreateTask},
   props: ['data'],
   data(){
     return {
       activity: {},
       modalTask: false,
+      modalActivity: false,
       selectedActivity: '',
       token: ''
     }

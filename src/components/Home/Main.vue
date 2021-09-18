@@ -1,19 +1,27 @@
 <template>
   <div class="container">
-    <div id="nav">
-      <button @click="logout()" class="btn btn-danger">Logout</button>
-    </div>
+    <nav class="navbar navbar-default mb-4">
+      <ul class="nav navbar-nav">
+        <li><a href="#" @click="logout()">Cerrar sesión</a></li>
+      </ul>
+    </nav>
     <div>
       <h1>Lista de actividades</h1>
     </div>
     <div class="row mt-2">
-      <div class="col-12 mb-2">
-        <button @click="modalCreate = true" class="btn btn-success">Agregar actividad</button>
+      <div class="col-12 d-flex justify-content-between mb-2">
         <div>
-          <label><input type="checkbox" v-model="checkCompleted"> Resueltas</label>
+          <!-- <select v-model="filterCompleted" name="" id="" class="form-control">
+            <option value="2">Todas</option>
+            <option value="1">Finalizada</option>
+            <option value="0">No finalizada</option>
+          </select> -->
+          <!-- <label class="p-2"><input type="checkbox" v-model="checkCompleted"> Resueltas</label>
+          <label><input type="checkbox" v-model="checkIncompleted"> No Resueltas</label> -->
         </div>
+        <button @click="modalCreate = true" class="btn btn-success">Agregar actividad</button>
       </div>
-      <div v-for="(activity, index) in filterActivities" :key="index" class="col-6">
+      <div v-for="(activity, index) in activities" :key="index" class="col-md-6 col-sm-12 p-2">
         <activity @delete-activity="deleteActivity($event)" @update-list="updateList($event)" :data="activity"/>
       </div>
     </div>
@@ -31,21 +39,20 @@ export default {
       token: '',
       modalCreate: false,
       activities: {},
-      checkCompleted: false,
+      filterCompleted: '2'
     }
   },
   computed: {
-    filterActivities(){
-      let check = this.checkCompleted;
-      return this.activities.filter(function(item){
-        if(check){
-          if(item.completed != 1){
-            return false
-          }
-        }
-        return true
-      })
-    }
+    // filterActivities(){
+    //   let check = this.filterCompleted;
+    //   return this.activities.filter(function(item){
+    //     if(check == 2){
+    //       return true
+    //     }else{
+    //       return item.completed == check
+    //     }
+    //   })
+    // }
   },
   created(){
     this.token = localStorage.getItem('token')
