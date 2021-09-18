@@ -1,7 +1,6 @@
 <template>
   <div class="container">
-    <div class="container">
-    <div class="row">
+    <div class="row mt-4">
       <div class="col-md-4 col-12"></div>
       <div class="col-md-4 col-12">
         <div class="card">
@@ -37,7 +36,6 @@
       </div>
       <div class="col-md-4 col-12"></div>
     </div>
-  </div>
   </div>
 </template>
 
