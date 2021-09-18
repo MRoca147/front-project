@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Register from '../components/Auth/Register.vue'
 import Login from '../components/Auth/Login.vue'
 import Home from '../components/Home/Main.vue'
-
+//import store from '../store/store'
 
 const routes = [
   {
@@ -17,26 +17,27 @@ const routes = [
   {
     path: '/login',
     name: 'Login',
-    component: Login
+    component: Login,
+    // beforeEnter: (to, from, next) => {
+    //   if(store.getters.getAuth == false){
+    //     next();
+    //   }else{
+    //     next('/Home');
+    //   }
+    // }
   },
   {
     path: '/Home',
     name: 'Home',
-    component: Home
+    component: Home,
+    // beforeEnter: (to, from, next) => {
+    //   if(!store.getters.getAuth){
+    //     next('/login');
+    //   }else{
+    //     next();
+    //   }
+    // }
   }
-  // {
-  //   path: '/',
-  //   name: 'Home',
-  //   component: Home
-  // },
-  // {
-  //   path: '/about',
-  //   name: 'About',
-  //   // route level code-splitting
-  //   // this generates a separate chunk (about.[hash].js) for this route
-  //   // which is lazy-loaded when the route is visited.
-  //   component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  // }
 ]
 
 const router = createRouter({

@@ -41,7 +41,7 @@ export default {
 
   },
   mounted(){
-
+    console.log(this.$store.getters.getAuth)
   },
   methods: {
     login(){
@@ -56,6 +56,7 @@ export default {
       .then(response => response.json())
       .then(data => {
         localStorage.setItem('token', data.data)
+        this.$store.commit("setAuth", true)
         this.$router.push('Home') 
       })
     }
