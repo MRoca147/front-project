@@ -21,6 +21,10 @@
                 <label for="password">Contraseña</label>
                 <input type="password" name="password" id="password" v-model="form.password" class="form-control" placeholder="Contraseña" aria-describedby="helpId">
               </div>
+              <div class="form-group">
+                <label for="password">Confirmar Contraseña</label>
+                <input type="password" name="password" id="password" v-model="form.password_confirmation" class="form-control" placeholder="Confirmar Contraseña" aria-describedby="helpId">
+              </div>
               <div class="form-group" v-if="error != ''">
                 <span class="mt-2" v-for="(item, index) in error" :key="index" style="color: red">{{item}}<br></span>
               </div>
